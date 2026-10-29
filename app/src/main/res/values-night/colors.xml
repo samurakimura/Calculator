@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- DARK MODE: Nen night -->
+    <color name="hxh_bg">#0B1410</color>
+    <color name="hxh_display_bg">#112119</color>
+    <color name="hxh_text_primary">#E6FFEF</color>
+    <color name="hxh_text_secondary">#7FB59A</color>
+    <color name="hxh_key_number">#17271E</color>
+    <color name="hxh_key_operator">#1F8A4C</color>
+    <color name="hxh_key_operator_text">#D8FFE8</color>
+    <color name="hxh_key_action">#C9A227</color>
+    <color name="hxh_key_equals">#39FF88</color>
+    <color name="hxh_key_equals_text">#06140C</color>
+</resources>

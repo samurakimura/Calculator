@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Base look shared by every key -->
+    <style name="Key" parent="Widget.Material3.Button">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_margin">5dp</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:padding">0dp</item>
+        <item name="cornerRadius">22dp</item>
+    </style>
+
+    <!-- Number keys -->
+    <style name="Key.Number">
+        <item name="backgroundTint">@color/hxh_key_number</item>
+        <item name="android:textColor">@color/hxh_text_primary</item>
+    </style>
+
+    <!-- + - x / % -->
+    <style name="Key.Operator">
+        <item name="backgroundTint">@color/hxh_key_operator</item>
+        <item name="android:textColor">@color/hxh_key_operator_text</item>
+    </style>
+
+    <!-- C and DEL -->
+    <style name="Key.Action">
+        <item name="backgroundTint">@color/hxh_key_action</item>
+        <item name="android:textColor">@color/hxh_text_primary</item>
+    </style>
+
+    <!-- The = key (the Nen glow in dark mode) -->
+    <style name="Key.Equals">
+        <item name="backgroundTint">@color/hxh_key_equals</item>
+        <item name="android:textColor">@color/hxh_key_equals_text</item>
+    </style>
+
+</resources>

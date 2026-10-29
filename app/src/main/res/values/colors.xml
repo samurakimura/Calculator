@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <!-- LIGHT MODE: Whale Island day -->
+    <color name="hxh_bg">#F3F7EC</color>
+    <color name="hxh_display_bg">#E1EBD2</color>
+    <color name="hxh_text_primary">#1B3A1F</color>
+    <color name="hxh_text_secondary">#5E7A5A</color>
+    <color name="hxh_key_number">#FFFFFF</color>
+    <color name="hxh_key_operator">#7BC043</color>
+    <color name="hxh_key_operator_text">#10300F</color>
+    <color name="hxh_key_action">#F2B134</color>
+    <color name="hxh_key_equals">#2E7D32</color>
+    <color name="hxh_key_equals_text">#FFFFFF</color>
+</resources>
