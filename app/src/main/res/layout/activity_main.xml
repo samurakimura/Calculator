@@ -1,153 +1,173 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/hxh_bg"
-    android:orientation="vertical"
-    android:padding="16dp">
+    android:background="@color/hxh_bg">
 
-    <!-- Top bar: title + light/dark toggle -->
+    <!-- Everything on screen -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp">
 
-        <TextView
-            android:layout_width="0dp"
+        <!-- Top bar: title + light/dark toggle -->
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="HUNTER × CALC"
-            android:textColor="@color/hxh_text_primary"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
-
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnTheme"
-            style="@style/Key.Action"
-            android:layout_width="wrap_content"
-            android:layout_height="48dp"
-            android:layout_weight="0"
-            android:paddingHorizontal="16dp"
-            android:text="Light / Dark"
-            android:textSize="13sp" />
-    </LinearLayout>
-
-    <!-- Display card with a glowing border -->
-    <com.google.android.material.card.MaterialCardView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginBottom="12dp"
-        android:layout_weight="2"
-        app:cardBackgroundColor="@color/hxh_display_bg"
-        app:cardCornerRadius="28dp"
-        app:cardElevation="0dp"
-        app:strokeColor="@color/hxh_key_equals"
-        app:strokeWidth="2dp">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="bottom|end"
-            android:orientation="vertical"
-            android:padding="20dp">
-
-            <!-- Small line showing the previous calculation -->
             <TextView
-                android:id="@+id/tvHistory"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:maxLines="1"
-                android:text=""
-                android:textColor="@color/hxh_text_secondary"
-                android:textSize="18sp" />
-
-            <!-- Main number, shrinks automatically when it gets long -->
-            <TextView
-                android:id="@+id/tvDisplay"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:autoSizeMaxTextSize="56sp"
-                android:autoSizeMinTextSize="24sp"
-                android:autoSizeTextType="uniform"
-                android:gravity="end"
-                android:maxLines="1"
-                android:text="0"
+                android:layout_weight="1"
+                android:text="HUNTER × CALC"
                 android:textColor="@color/hxh_text_primary"
+                android:textSize="20sp"
                 android:textStyle="bold" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnTheme"
+                style="@style/Key.Action"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_weight="0"
+                android:paddingHorizontal="16dp"
+                android:text="Light / Dark"
+                android:textSize="13sp" />
         </LinearLayout>
-    </com.google.android.material.card.MaterialCardView>
 
-    <!-- Keypad: 5 rows, each row shares the height equally -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="5"
-        android:orientation="vertical">
+        <!-- Display card with a glowing border -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/displayCard"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="12dp"
+            android:layout_weight="2.2"
+            app:cardBackgroundColor="@color/hxh_display_bg"
+            app:cardCornerRadius="28dp"
+            app:cardElevation="0dp"
+            app:strokeColor="@color/hxh_key_equals"
+            app:strokeWidth="2dp">
 
-        <!-- Row 1 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:paddingHorizontal="20dp"
+                android:paddingVertical="12dp">
+
+                <!-- Small line showing the previous calculation -->
+                <TextView
+                    android:id="@+id/tvHistory"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:includeFontPadding="false"
+                    android:maxLines="1"
+                    android:minHeight="24dp"
+                    android:text=""
+                    android:textColor="@color/hxh_text_secondary"
+                    android:textSize="18sp" />
+
+                <!-- Main number: fills the rest of the card and shrinks to fit -->
+                <TextView
+                    android:id="@+id/tvDisplay"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="bottom|end"
+                    android:includeFontPadding="false"
+                    android:maxLines="1"
+                    android:text="0"
+                    android:textColor="@color/hxh_text_primary"
+                    android:textStyle="bold"
+                    app:autoSizeMaxTextSize="52sp"
+                    app:autoSizeMinTextSize="22sp"
+                    app:autoSizeStepGranularity="1sp"
+                    app:autoSizeTextType="uniform" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Keypad: 5 rows, each row shares the height equally -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
-            android:orientation="horizontal">
-            <com.google.android.material.button.MaterialButton android:id="@+id/btnClear" style="@style/Key.Action" android:text="C" />
-            <com.google.android.material.button.MaterialButton android:id="@+id/btnDel" style="@style/Key.Action" android:text="DEL" android:textSize="18sp" />
-            <com.google.android.material.button.MaterialButton android:id="@+id/btnPercent" style="@style/Key.Operator" android:text="%" />
-            <com.google.android.material.button.MaterialButton android:id="@+id/btnDivide" style="@style/Key.Operator" android:text="÷" />
+            android:layout_weight="5"
+            android:orientation="vertical">
+
+            <!-- Row 1 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+                <com.google.android.material.button.MaterialButton android:id="@+id/btnClear" style="@style/Key.Action" android:text="C" />
+                <com.google.android.material.button.MaterialButton android:id="@+id/btnDel" style="@style/Key.Action" android:text="DEL" android:textSize="18sp" />
+                <com.google.android.material.button.MaterialButton android:id="@+id/btnPercent" style="@style/Key.Operator" android:text="%" />
+                <com.google.android.material.button.MaterialButton android:id="@+id/btnDivide" style="@style/Key.Operator" android:text="÷" />
+            </LinearLayout>
+
+            <!-- Row 2 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+                <com.google.android.material.button.MaterialButton android:id="@+id/btn7" style="@style/Key.Number" android:text="7" />
+                <com.google.android.material.button.MaterialButton android:id="@+id/btn8" style="@style/Key.Number" android:text="8" />
+                <com.google.android.material.button.MaterialButton android:id="@+id/btn9" style="@style/Key.Number" android:text="9" />
+                <com.google.android.material.button.MaterialButton android:id="@+id/btnMultiply" style="@style/Key.Operator" android:text="×" />
+            </LinearLayout>
+
+            <!-- Row 3 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+                <com.google.android.material.button.MaterialButton android:id="@+id/btn4" style="@style/Key.Number" android:text="4" />
+                <com.google.android.material.button.MaterialButton android:id="@+id/btn5" style="@style/Key.Number" android:text="5" />
+                <com.google.android.material.button.MaterialButton android:id="@+id/btn6" style="@style/Key.Number" android:text="6" />
+                <com.google.android.material.button.MaterialButton android:id="@+id/btnSubtract" style="@style/Key.Operator" android:text="−" />
+            </LinearLayout>
+
+            <!-- Row 4 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+                <com.google.android.material.button.MaterialButton android:id="@+id/btn1" style="@style/Key.Number" android:text="1" />
+                <com.google.android.material.button.MaterialButton android:id="@+id/btn2" style="@style/Key.Number" android:text="2" />
+                <com.google.android.material.button.MaterialButton android:id="@+id/btn3" style="@style/Key.Number" android:text="3" />
+                <com.google.android.material.button.MaterialButton android:id="@+id/btnAdd" style="@style/Key.Operator" android:text="+" />
+            </LinearLayout>
+
+            <!-- Row 5: the 0 key is twice as wide -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+                <com.google.android.material.button.MaterialButton android:id="@+id/btn0" style="@style/Key.Number" android:layout_weight="2" android:text="0" />
+                <com.google.android.material.button.MaterialButton android:id="@+id/btnDot" style="@style/Key.Number" android:text="." />
+                <com.google.android.material.button.MaterialButton android:id="@+id/btnEquals" style="@style/Key.Equals" android:text="=" />
+            </LinearLayout>
         </LinearLayout>
 
-        <!-- Row 2 -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:orientation="horizontal">
-            <com.google.android.material.button.MaterialButton android:id="@+id/btn7" style="@style/Key.Number" android:text="7" />
-            <com.google.android.material.button.MaterialButton android:id="@+id/btn8" style="@style/Key.Number" android:text="8" />
-            <com.google.android.material.button.MaterialButton android:id="@+id/btn9" style="@style/Key.Number" android:text="9" />
-            <com.google.android.material.button.MaterialButton android:id="@+id/btnMultiply" style="@style/Key.Operator" android:text="×" />
-        </LinearLayout>
-
-        <!-- Row 3 -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:orientation="horizontal">
-            <com.google.android.material.button.MaterialButton android:id="@+id/btn4" style="@style/Key.Number" android:text="4" />
-            <com.google.android.material.button.MaterialButton android:id="@+id/btn5" style="@style/Key.Number" android:text="5" />
-            <com.google.android.material.button.MaterialButton android:id="@+id/btn6" style="@style/Key.Number" android:text="6" />
-            <com.google.android.material.button.MaterialButton android:id="@+id/btnSubtract" style="@style/Key.Operator" android:text="−" />
-        </LinearLayout>
-
-        <!-- Row 4 -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:orientation="horizontal">
-            <com.google.android.material.button.MaterialButton android:id="@+id/btn1" style="@style/Key.Number" android:text="1" />
-            <com.google.android.material.button.MaterialButton android:id="@+id/btn2" style="@style/Key.Number" android:text="2" />
-            <com.google.android.material.button.MaterialButton android:id="@+id/btn3" style="@style/Key.Number" android:text="3" />
-            <com.google.android.material.button.MaterialButton android:id="@+id/btnAdd" style="@style/Key.Operator" android:text="+" />
-        </LinearLayout>
-
-        <!-- Row 5: the 0 key is twice as wide -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:orientation="horizontal">
-            <com.google.android.material.button.MaterialButton android:id="@+id/btn0" style="@style/Key.Number" android:layout_weight="2" android:text="0" />
-            <com.google.android.material.button.MaterialButton android:id="@+id/btnDot" style="@style/Key.Number" android:text="." />
-            <com.google.android.material.button.MaterialButton android:id="@+id/btnEquals" style="@style/Key.Equals" android:text="=" />
-        </LinearLayout>
     </LinearLayout>
 
-</LinearLayout>
+    <!-- Floating sparks, drawn on top of everything (touches pass through) -->
+    <com.example.calculator.AuraView
+        android:id="@+id/auraView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="false"
+        android:focusable="false" />
+
+</FrameLayout>

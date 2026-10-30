@@ -1,6 +1,13 @@
 package com.example.calculator
 
 import android.content.res.Configuration
+import android.animation.ValueAnimator
+import android.annotation.SuppressLint
+import android.view.MotionEvent
+import android.view.ViewGroup
+import android.view.animation.OvershootInterpolator
+import com.google.android.material.button.MaterialButton
+import com.google.android.material.card.MaterialCardView
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
@@ -17,6 +24,8 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var tvDisplay: TextView
     private lateinit var tvHistory: TextView
+    private lateinit var auraView: AuraView
+    private var auraAnimator: ValueAnimator? = null
 
     private var expression = ""          // what the user has typed, e.g. "12+3×2"
     private var justEvaluated = false    // true right after pressing "="
@@ -55,6 +64,9 @@ class MainActivity : AppCompatActivity() {
 
         tvDisplay = findViewById(R.id.tvDisplay)
         tvHistory = findViewById(R.id.tvHistory)
+        auraView = findViewById(R.id.auraView)
+        startAuraPulse()
+        addKeyPop(findViewById(R.id.main))
 
         // Digit keys
         val digitKeys = mapOf(
@@ -108,7 +120,58 @@ class MainActivity : AppCompatActivity() {
         outState.putString("hist", tvHistory.text.toString())
         outState.putBoolean("done", justEvaluated)
     }
+    // ---------- Animations ----------
 
+    // The display border slowly grows and shrinks, like a Nen aura
+    private fun startAuraPulse() {
+        val card = findViewById<MaterialCardView>(R.id.displayCard)
+        val minWidth = (2 * resources.displayMetrics.density).toInt()
+        val maxWidth = (6 * resources.displayMetrics.density).toInt()
+        auraAnimator = ValueAnimator.ofInt(minWidth, maxWidth).apply {
+            duration = 1400
+            repeatMode = ValueAnimator.REVERSE
+            repeatCount = ValueAnimator.INFINITE
+            addUpdateListener { card.strokeWidth = it.animatedValue as Int }
+            start()
+        }
+    }
+
+    // Every key shrinks when pressed and springs back when released
+    @SuppressLint("ClickableViewAccessibility")
+    private fun addKeyPop(view: View) {
+        if (view is MaterialButton) {
+            view.setOnTouchListener { v, event ->
+                when (event.action) {
+                    MotionEvent.ACTION_DOWN ->
+                        v.animate().scaleX(0.92f).scaleY(0.92f).setDuration(70).start()
+                    MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL ->
+                        v.animate().scaleX(1f).scaleY(1f).setDuration(220)
+                            .setInterpolator(OvershootInterpolator(3f)).start()
+                }
+                false // false = the normal click still works
+            }
+        } else if (view is ViewGroup) {
+            for (i in 0 until view.childCount) addKeyPop(view.getChildAt(i))
+        }
+    }
+
+    // Sparks shoot out from the middle of the display card
+    private fun burstFromDisplay() {
+        val card = findViewById<View>(R.id.displayCard)
+        val cardPos = IntArray(2)
+        val auraPos = IntArray(2)
+        card.getLocationOnScreen(cardPos)
+        auraView.getLocationOnScreen(auraPos)
+        auraView.burst(
+            cardPos[0] - auraPos[0] + card.width / 2f,
+            cardPos[1] - auraPos[1] + card.height / 2f
+        )
+    }
+
+    override fun onDestroy() {
+        auraAnimator?.cancel()
+        super.onDestroy()
+    }
     // ---------- Typing ----------
 
     private fun currentNumber(): String =
@@ -192,6 +255,7 @@ class MainActivity : AppCompatActivity() {
             justEvaluated = true
             refresh()
             pulseDisplay()
+            burstFromDisplay()
             Toast.makeText(this, messages.random(), Toast.LENGTH_SHORT).show()
         } catch (e: ArithmeticException) {
             showError("Can't divide by 0")
@@ -217,7 +281,7 @@ class MainActivity : AppCompatActivity() {
     private fun pulseDisplay() {
         tvDisplay.pivotX = tvDisplay.width.toFloat()
         tvDisplay.pivotY = tvDisplay.height / 2f
-        tvDisplay.animate().scaleX(1.12f).scaleY(1.12f).setDuration(120).withEndAction {
+        tvDisplay.animate().scaleX(1.05f).scaleY(1.05f).setDuration(120).withEndAction {
             tvDisplay.animate().scaleX(1f).scaleY(1f).setDuration(120).start()
         }.start()
     }
